@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+<!-- Request style sheets from onsen-->
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+
+<body>
+  <!-- Provides a sidebar with items home, profile, settings, about-->
+   <ons-splitter>
+  <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+    <ons-page id="mypage">
+      <ons-list>
+        <ons-list-item onclick="fn.load('home.html')" tappable>
+          Home
+        </ons-list-item>
+        <ons-list-item onclick="fn.load('profile.html')" tappable>
+          Profile
+        </ons-list-item>
+        <ons-list-item onclick="fn.load('settings.html')" tappable>
+          Settings
+        </ons-list-item>
+        <ons-list-item onclick="fn.load('about.html')" tappable>
+          About
+        </ons-list-item>
+      </ons-list>
+    </ons-page>
+  </ons-splitter-side>
+  <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+</ons-splitter>
+
+<!-- Provides a button on bottom right of the screen, can remove-->
+ <<ons-fab position="bottom center">
+    <ons-icon icon="md-home" onclick="fn.load('home.html')" style = "background-color : white"></ons-icon>
+  </ons-fab>
+
+<!-- Templates for the web pages -->
+<template id="home.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style = "color: #ff6363" >
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        Sport Sort
+      </div>
+    </ons-toolbar>
+      <img src = "https://i.imgur.com/8yiYpZ8.png" style = "padding: 79px">
+    <!-- This button deals with loading the map-->
+    <section style="padding: 45px">
+      <ons-button modifier="large" onclick = "fn.load('play-map.html')" style = "background-color: #ff6363" >Play</ons-button>
+      <p></p>
+      <ons-button modifier="large" onclick = "fn.load('sport-list.html')" style = "background-color: #ff6363" >Host</ons-button>
+      <p></p>
+    </section>
+  </ons-page>
+</template>
+
+<!-- Provides information about the settings-->
+<template id="settings.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style="color: #ff6363">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <!-- Describes the tab name -->
+      <div class="center">
+        Settings
+      </div>
+    </ons-toolbar>
+    <p></p>
+    <ul class="list">
+    <li class="list-item list-item--tappable">
+    <div class="list-item__left">
+      <label class="checkbox">
+        <input type="checkbox" id="checkbox1" class="checkbox__input" name="c" checked="checked">
+        <div class="checkbox__checkmark"></div>
+      </label>
+    </div>
+    <label for="checkbox1" class="list-item__center">
+      Notifications
+    </label>
+    </li>
+    <ul class="list list--noborder">
+  <li class="list-item">
+    <div class="list-item__center" onclick="fn.load('home.html')">Privacy settings</div>
+  </li>
+  <li class="list-item">
+    <div class="list-item__center">Item</div>
+  </li>
+</ul>
+  </ul>
+    <!-- Information on the page (just written) -->
+    <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+      Settings
+    </p>
+  </ons-page>
+</template>
+
+<!-- This contains information about the app itself-->
+<!-- Reminder to self to add information-->
+<template id="about.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style="color: #ff6363">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        About
+      </div>
+    </ons-toolbar>
+    <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+      SportSort is a casual team organising app that allows users to find others interested in playing similar sports. SportSort allows a user to host an event, including the time, location, sport and number of extra players needed, while other users can sign up to take part in the event. This allows casual players to find other players to locate other casual players if they aren't able to find enough people to fill a team, allowing users to quickly organise casual games with other players who are enjoy similar sports and live nearby.
+    </p>
+  </ons-page>
+</template>
+
+<!-- This site contains information for the profile-->
+<template id="profile.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style="color: #ff6363">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        Profile
+      </div>
+    </ons-toolbar>
+    <ons-page>
+  <ons-card>
+    <img src="https://i.imgur.com/a9gZu5t.jpg" alt="Onsen UI" style="width: 100%">
+    <div class="title">
+      Matthew Weiss
+    </div>
+    <div class="content">
+      <ons-list>
+        <ons-list-header>Bio</ons-list-header>
+        <ons-list-item>Age: 19</ons-list-item>
+        <ons-list-item>Favorite sport: Basketball</ons-list-item>
+      </ons-list>
+    </div>
+  </ons-card>
+    <p></p>
+    <section style="padding: 45px">
+     <ons-button modifier="large" onclick = "fn.load('match-history.html')" style="background-color: #ff6363">Match History</ons-button>
+    </section>
+  </ons-page>
+</template>
+
+<!-- This site requests information from backend to load a map-->
+<template id="play-map.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style = "color: #ff6363" >
+          <ons-icon icon="md-menu"></ons-icon>
+      </div>
+      <div class="center">
+        Map
+      </div>
+    </ons-toolbar>
+    <!-- Add a map -->
+    <div style="height: 200px; padding: 1px 0 0 0;">
+  <div class="card card--material">
+    <div onclick = "fn.load('location.html')" class="mapouter" style = "padding: 2.25px" ><div class="gmap_canvas"><iframe width="364" height="406" id="gmap_canvas" src="https://maps.google.com/maps?q=prince%20alfred's%20basketball%20court&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.pureblack.de">pureblack.de</a></div><style>.mapouter{text-align:right;height:406px;width:364px;}.gmap_canvas {overflow:hidden;background:none!important;height:406px;width:364px;}</style></div>
+  </div>
+</div>
+  </ons-page>
+</template>
+
+<!-- Web page containing a list of sports -->
+<template id="sport-list.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style = "color: #ff6363" >
+          <ons-icon icon="md-menu"></ons-icon>
+      </div>
+      <div class="center">
+        Sport List
+      </div>
+    </ons-toolbar>
+    <p style="text-align: center; opacity: 0.6; padding-top: 15px;">
+      Please choose the game you wish to play...
+    </p>
+    <ul class="list">
+      <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/eNZPhiR.png" alt="Soccer Ball">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Soccer</div>
+    </div>
+    </li>
+    <li class="list-item" onclick = "fn.load('host.html')">
+      <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/2u72vyk.png" alt="Basketball">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Basketball</div>
+    </div>
+  </li>
+  <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/NNGX9vO.png" alt="Cricket ball">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Cricket</div>
+    </div>
+    </li>
+    <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/UJDbgDK.png" alt="Rugby">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Rugby</div>
+    </div>
+    </li>
+    <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/3XFx0a4.png" alt="Golf">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Golf</div>
+    </div>
+    </li>
+    <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/TJTPqLY.png" alt="AFL">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">AFL</div>
+    </div>
+    </li>
+    <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/LKFjn5H.png" alt="Volleyball">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Volleyball</div>
+    </div>
+    </li>
+    <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/oeITIuC.png" alt="Frisbee">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Frisbee</div>
+    </div>
+    </li>
+    <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/Eh9aQAg.png" alt="Quidditch">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Quidditch</div>
+    </div>
+    </li>
+    <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/Q5SlIMv.png" alt="Baseball">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Baseball</div>
+    </div>
+    </li>
+    <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/YShBSzh.png" alt="NFL">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">NFL</div>
+    </div>
+    </li>
+    <li class="list-item" onclick = "fn.load('host.html')">
+        <div class="list-item__left">
+        <img class="list-item__thumbnail" src="https://i.imgur.com/M0LoIc5.png" alt="Boxing">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Boxing</div>
+    </div>
+    </li>
+
+</ul>
+  </ons-page>
+</template>
+
+<!-- Web page containing information about match history -->
+<template id="match-history.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style="color: #ff6363">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        Match History
+      </div>
+    </ons-toolbar>
+    <u1>
+    <li class="list-item_center">
+      <ons-list-header modifier="material modifier2"><ons-list-header>
+      <div class="list-item_title">5/8 : 9:20 AM</div>
+      <div class="list-item">Basketball, Ultimo</div>
+    </li>
+
+    <li class="list-item_center">
+      <ons-list-header modifier="material modifier2"><ons-list-header>
+      <div class="list-item_title">5/8: 10:15 AM</div>
+      <div class="list-item">Baseball, Ultimo</div>
+    </li>
+
+    <li class="list-item_center">
+      <ons-list-header modifier="material modifier2"><ons-list-header>
+      <div class="list-item_title">5/8 11:20 AM</div>
+      <div class="list-item">Cricket, Ultimo</div>
+    </li>
+
+    <li class="list-item_center">
+      <ons-list-header modifier="material modifier"><ons-list-header>
+      <div class="list-item_title">5/8 11:45 AM</div>
+      <div class="list-item">Quidditch, Ultimo</div>
+    </li>
+    </u1>
+  </ons-page>
+</template>
+
+<!-- Page containing information about host -->
+<template id="host.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style="color: #ff6363">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        Host
+      </div>
+    </ons-toolbar>
+    <!-- Loading bar -->
+    <div class="progress-bar progress-bar--indeterminate">
+    </div>
+
+    <ul class="list">
+      <li class="list-item">
+        <div class="list-item__center">
+            <input type="text" id="npeople" name="npeople" class="text-input" placeholder="Number of people:">
+        </div>
+      </li>
+    <li class="list-item">
+    <div class="list-item__center">
+        <input type="text" id="address" name="address" class="text-input" placeholder="Address">
+    </div>
+    </li>
+    <li class="list-item">
+    <div class="list-item__center">
+        <input type="text" id="sdate" name = "sdate" class="text-input" placeholder="Date">
+    </div>
+    </li>
+    <li class="list-item">
+    <div class="list-item__center">
+        <input type="text" id="ntime" name = "ntime" class="text-input" placeholder="Time">
+    </div>
+    </li>
+    <li class="list-item">
+    <div class="list-item__center" onclick = "fn.load('lobby.html')">
+        <input type="submit" value="Submit"/>
+    </div>
+    </li>
+    </ul>
+
+
+    <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+    </p>
+
+  </ons-page>
+</template>
+
+
+<template id="lobby.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style="color: #ff6363">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        Lobby
+      </div>
+    </ons-toolbar>
+    <ul class="list">
+  <li class="list-item">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-9/14344704_1368018463226721_5666627341776482317_n.jpg?_nc_cat=0&oh=af63ec6e6dc3e412c378845284e078d1&oe=5BCACD46">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Khye</div>
+      <div class="list-item__subtitle">Looking to play basketball...</div>
+    </div>
+
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+
+  <li class="list-item">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t31.0-1/c0.74.320.320/p320x320/21768615_1427766107339875_6470600230564892085_o.jpg?_nc_cat=0&oh=bc316986181604ececffb1f6bcaab7da&oe=5BC6770C">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Brendon</div>
+      <div class="list-item__subtitle">Looking to play frisbee....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+   <li class="list-item" style="background-color: #75e052 " onclick="fn.load('profile-ash.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t31.0-8/27164645_2023323934349156_6892481432891102482_o.jpg?_nc_cat=0&oh=8406f2dafd0e3f32d05475d60cfc5a59&oe=5BC7925D">
+    </div>
+    <div class="list-item__center">
+      <div class="list-item__title">Ash</div>
+      <div class="list-item__subtitle">Looking to play golf....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+  <li class="list-item" onclick="fn.load('profile-ash.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-1/p320x320/28280027_551798338523017_1379650083638998393_n.jpg?_nc_cat=0&oh=bfaf5ea47982555592129567702f7c6e&oe=5C1293BA">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Adrian</div>
+      <div class="list-item__subtitle">Looking to play cricket....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+  <li class="list-item" onclick="fn.load('profile-ash.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-1/p320x320/29472938_2038207026503218_517619483720085752_n.jpg?_nc_cat=0&oh=eae39e08aa0e208b83be2d9245767d23&oe=5C1217D7">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Arpit</div>
+      <div class="list-item__subtitle">Looking to play cricket....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+  <li class="list-item" onclick="fn.load('profile-ash.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-1/p320x320/28167709_1587854174663085_7007092013527581349_n.jpg?_nc_cat=0&oh=be0ef63ae6beb051f4a6e11b709bc46a&oe=5BC84248">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Jeremy</div>
+      <div class="list-item__subtitle">Looking to play volleyball....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+  <li class="list-item" onclick="fn.load('profile-ash.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-1/p200x200/32260593_1922208857798509_2585585262973157376_n.jpg?_nc_cat=0&oh=df649d16a5da113a30a68975ae5596f1&oe=5C06F9ED">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Jess</div>
+      <div class="list-item__subtitle">Looking to play frisbee....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+    <li class="list-item" onclick="fn.load('profile-ash.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-1/p200x200/23722665_1626512620761643_5134514149262283622_n.jpg?_nc_cat=0&oh=c2534ecf829bdb22821af924faf74048&oe=5BCBFD01">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Sarah</div>
+      <div class="list-item__subtitle">Looking to play baseball....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+    <li class="list-item" style="background-color: #75e052 " onclick="fn.load('profile-christine.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-1/p200x200/28471993_10215604141486358_3875919407257994962_n.jpg?_nc_cat=0&oh=689e16c57a47b71d992d72d48f35fa4e&oe=5BD3E6A6">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Christine</div>
+      <div class="list-item__subtitle">Looking to play golf....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+    <li class="list-item" onclick="fn.load('profile-ash.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src=https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-1/p200x200/13612274_690562711100837_2259635335147614651_n.jpg?_nc_cat=0&oh=f977cd89fc5cd6766cc8b31bee0b80af&oe=5BCC4CFE>
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Kirby</div>
+      <div class="list-item__subtitle">Looking to play basketball....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+  </li>
+    <li class="list-item" onclick="fn.load('profile-ash.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src=https://www.facebook.com/search/async/profile_picture/?fbid=100001651129991&width=72&height=72>
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Reynard</div>
+      <div class="list-item__subtitle">Looking to play rugby....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+  <li class="list-item" onclick="fn.load('profile-ash.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-1/p320x320/26239369_1528599017261441_193081554648799565_n.jpg?_nc_cat=0&oh=e18b4349104e0e4dd499a277c1f54b69&oe=5C1398AE">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Saben</div>
+      <div class="list-item__subtitle">Looking to play soccer....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+  <li class="list-item" style="background-color: #75e052 " onclick="fn.load('profile-james.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-1/c0.0.320.320/p320x320/21730891_1663521703699383_1232481183912510138_n.jpg?_nc_cat=0&oh=5e0129d522710fa85d3b315b956d4905&oe=5C10EA60">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">James</div>
+      <div class="list-item__subtitle">Looking to play golf....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+  <li class="list-item" onclick="fn.load('profile-ash.html')">
+    <div class="list-item__left">
+      <img class="list-item__thumbnail" src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-1/p320x320/21752253_2012431432310275_5955835361688614322_n.jpg?_nc_cat=0&oh=f6e192dd21ce4332c204ecd043aac6e8&oe=5C04E015">
+    </div>
+
+    <div class="list-item__center">
+      <div class="list-item__title">Rhuten</div>
+      <div class="list-item__subtitle">Looking to play quidditch....</div>
+    </div>
+    <div class="list-item__right">
+      <i class="ion-ios-information list-item__icon"></i>
+    </div>
+  </li>
+</ul>
+  </ons-page>
+</template>
+
+<template id="location.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style="color: #ff6363">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        Location
+      </div>
+    </ons-toolbar>
+    <div style="height: 200px; padding: 1px 0 0 0;">
+      <div class="card card--material">
+        <div class="card__title card--material__title">About the location:</div>
+        <img src = "https://i.imgur.com/6ZBFyEf.jpg" style="width:356px;height:356px; padding: 8px">
+        <div class="card__content card--material__content" style="position: center padding: 9px">"Large, landscaped park featuring a year-round, outdoor heated pool with a cafe, plus tennis courts."</div>
+    </div>
+  </div>
+  <p></p>
+  <p style="padding: 120px"></p>
+  <section style="padding: 45px">
+      <ons-button modifier="large" onclick = "fn.load('lobby.html')" style = "background-color: #ff6363" >Register for a game</ons-button>
+      <p></p>
+      <ons-button modifier="large" onclick = "fn.load('play-map.html')" style = "background-color: #ff6363" >Look for another location</ons-button>
+      <p></p>
+    </section>
+  </ons-page>
+</template>
+
+
+<!-- This site contains information for the profile-->
+<template id="profile-ash.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style="color: #ff6363">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        Profile
+      </div>
+    </ons-toolbar>
+    <ons-page>
+  <ons-card>
+    <img src="https://i.imgur.com/atuQ73q.jpg" alt="Onsen UI" style="width: 100%">
+    <div class="title">
+      Ash Sarkar
+    </div>
+    <div class="content">
+      <ons-list>
+        <ons-list-header>Bio</ons-list-header>
+        <ons-list-item>Age: 19</ons-list-item>
+        <ons-list-item>Favorite sport: Golf</ons-list-item>
+      </ons-list>
+    </div>
+  </ons-card>
+    <p></p>
+    <section style="padding: 45px">
+     <ons-button modifier="large" onclick = "fn.load('match-history.html')" style="background-color: #ff6363">Invite to game</ons-button>
+      <p></p>
+     <ons-button modifier="large" onclick = "fn.load('match-history.html')" style="background-color: #ff6363">Match History</ons-button>
+    </section>
+  </ons-page>
+</template>
+
+<!-- This site contains information for the profile (christine)-->
+<template id="profile-christine.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style="color: #ff6363">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        Profile
+      </div>
+    </ons-toolbar>
+    <ons-page>
+  <ons-card>
+    <img src="https://i.imgur.com/dYRF3Un.jpg" alt="Onsen UI" style="width: 100%">
+    <div class="title">
+      Christine Wu
+    </div>
+    <div class="content">
+      <ons-list>
+        <ons-list-header>Bio</ons-list-header>
+        <ons-list-item>Age: 20</ons-list-item>
+        <ons-list-item>Favorite sport: Golf</ons-list-item>
+      </ons-list>
+    </div>
+  </ons-card>
+    <p></p>
+    <section style="padding: 45px">
+      <ons-button modifier="large" onclick = "fn.load('match-history.html')" style="background-color: #ff6363">Invite to game</ons-button>
+      <p></p>
+     <ons-button modifier="large" onclick = "fn.load('match-history.html')" style="background-color: #ff6363">Match History</ons-button>
+    </section>
+  </ons-page>
+</template>
+
+<!-- This site contains information for the profile (james)-->
+<template id="profile-james.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick="fn.open()" style="color: #ff6363">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">
+        Profile
+      </div>
+    </ons-toolbar>
+    <ons-page>
+  <ons-card>
+    <img src="https://i.imgur.com/0wGuTE0.jpg" alt="Onsen UI" style="width: 100%">
+    <div class="title">
+      James Hoang
+    </div>
+    <div class="content">
+      <ons-list>
+        <ons-list-header>Bio</ons-list-header>
+        <ons-list-item>Age: 18</ons-list-item>
+        <ons-list-item>Favorite sport: Golf</ons-list-item>
+      </ons-list>
+    </div>
+  </ons-card>
+    <p></p>
+    <section style="padding: 45px">
+     <ons-button modifier="large" onclick = "fn.load('match-history.html')" style="background-color: #ff6363">Invite to game</ons-button>
+      <p></p>
+     <ons-button modifier="large" onclick = "fn.load('match-history.html')" style="background-color: #ff6363">Match History</ons-button>
+    </section>
+  </ons-page>
+</template>
+
+</body>
+</html>
